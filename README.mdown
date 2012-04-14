@@ -156,16 +156,17 @@ Supported sample applications:
 Basic Example
 -------------
 
-  <?php
-  require_once 'path/to/src/apiClient.php';
-  require_once 'path/to/src/contrib/apiBooksService.php';
+	<?php
+	require_once 'path/to/src/apiClient.php';
+	require_once 'path/to/src/contrib/apiBooksService.php';
 
-  $client = new apiClient();
-  $service = new apiBooksService($client);
+	$client = new apiClient();
+	$service = new apiBooksService($client);
 
-  $optParams = array('filter' => 'free-ebooks');
-  $results = $service->volumes->listVolumes('Henry David Thoreau', $optParams);
+	$optParams = array('filter' => 'free-ebooks');
+	$results = $service->volumes->listVolumes('Henry David Thoreau', $optParams);
 
-  foreach ($results['items'] as $item) {
-    print($item['volumeInfo']['title'] . '<br>');
-  }
+	foreach ($results['items'] as $item) {
+		print($item['volumeInfo']['title'] . '<br>');
+	}
+	
