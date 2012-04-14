@@ -1,0 +1,117 @@
+Google API Client
+=================
+
+The summary description of this spark is simple: this is simply version 3 of the Google distributed API Client, without a single code change made to it, made available to the Sparks repository.
+
+The Google API Client is used to interact with a plethora of Google web services:
+
+- AdSense
+- Affiliate Network
+- Analytics
+- Apps
+- Books
+- Calendar
+- Contacts
+- Latitude
+- Page Speed
+- Plus
+- Shopping
+- Tasks
+- Translate
+- URL Shortener
+- User Info
+- Web Fonts
+
+All of the included documentation is included within this Spark directory (including Google's README file, LICENSE, NOTICE, examples, etc.)
+
+Why Didn't You Port Anything To Codeigniter-ese?
+------------------------------------------------
+
+Google has done a great job making their API easy to use, and they have provided a number of examples that users can simply copy and paste into their code. Since this is such a convenience for novice users or users unfamiliar with the Google API, this capability remains, so copy and paste away?
+
+What Changes Are There With This Spark Compared to The Google Distributed Code?
+-------------------------------------------------------------------------------
+
+None, but for your convenience we have included some example code which makes referencing the libraries included in this repository by name a little easier. Instead of doing:
+
+	<?php
+	require_once '../../src/apiClient.php';
+	?>
+
+since conceptualizing these paths might be a little tricky within CodeIgniter, you can do:
+
+	<?php
+	require_once SPARKPATH . "GoogleAPIClient/3.0.0/src/apiClient.php";
+	?>
+	
+
+How Do I Load This Spark?
+-------------------------
+
+Normally this would be:
+
+	<?php
+	$this->load->spark('GoogleAPIClient/3.0.0');
+	?>
+	
+but this doesn't actually do anything since there are no CodeIgniter-esque config files, helpers, or libraries within this Spark. Just follow the example code (some included below) to init this Spark.
+
+One note though, because you'll probably want to speak to Google within a CodeIgniter controller, you'll need to make available the variables defined in the included configuration file (see below) in your controller, which you can do as such (include this line before you start speaking to Google).
+
+	<?php
+	global $apiConfig;
+	?>
+
+So What's the Point Of This Stupid Thing?
+-----------------------------------------
+
+Pretty much just:
+
+- The ability to install and update this via the Sparks system
+- The ability to use **SPARKPATH** to integrate this a little easier within your CodeIgniter projects
+- The ability to keep this code isolated from the rest of your project, the Sparks way
+
+Example Code/How To
+-------------------
+
+Just as you would with using this API outside of CodeIgniter/Sparks:
+
+1. Get yourself a Google Account
+2. Register your project with Google, and obtain an oAuth Client ID and Client Secret via the "API Access" of your Google API Console. Decide what URL you want your users to be redirected to after successful oAuth authorization/authentication and enter that here as well. Take note of these three values.
+3. Enter these three values into the included **src/config.php** file where prompted.
+
+You can now access these Google services via the included example code, included here (an example that fetches a list of calendars within your account) with the aforementioned path alterations for your convenience:
+
+	<?php
+	global $apiConfig;
+
+	require_once SPARKPATH . "GoogleAPIClient/3.0.0/src/apiClient.php";
+	require_once SPARKPATH . "GoogleAPIClient/3.0.0/src/contrib/apiCalendarService.php";
+
+	// init API
+	$apiClient = new apiClient();
+	$apiClient->setApplicationName("Google Calendar PHP Starter Application");
+	$apiClient->setUseObjects(true);
+	
+	// init Google Calendar
+	$cal = new apiCalendarService($apiClient);
+
+	// authenticate/authorize user
+	if (isset($_SESSION['oauth_access_token'])) {
+		$apiClient->setAccessToken($_SESSION['oauth_access_token']);
+	} else {
+		$token = $apiClient->authenticate();
+		$_SESSION['oauth_access_token'] = $token;
+	}
+
+	// list your calendars
+	if ($apiClient->getAccessToken()) {
+		$calList = $cal->calendarList->listCalendarList();
+		print "<h1>Calendar List</h1><pre>" . print_r($calList, true) . "</pre>";
+		$_SESSION['token'] = $apiClient->getAccessToken();
+	} else {
+		$authUrl = $apiClient->createAuthUrl();
+		print "<a class='login' href='$authUrl'>Connect Me!</a>";
+	}
+	?>
+
