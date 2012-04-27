@@ -1,7 +1,7 @@
 Google API Client
 =================
 
-The summary description of this spark is simple: this is simply version 3 of the Google distributed API Client, without a single code change made to it, made available to the Sparks repository.
+The summary description of this spark is simple: this is simply version 0.5.0 of the Google distributed PHP API Client (which supports Google's API version 3), without a single code change made to it, made available to the Sparks repository.
 
 The Google API Client is used to interact with a plethora of Google web services:
 
@@ -41,7 +41,7 @@ None, but for your convenience we have included some example code which makes re
 since conceptualizing these paths might be a little tricky within CodeIgniter, you can do:
 
 	<?php
-	require_once SPARKPATH . "GoogleAPIClient/3.0.0/src/apiClient.php";
+	require_once SPARKPATH . "GoogleAPIClient/0.5.0/src/apiClient.php";
 	?>
 	
 
@@ -51,7 +51,7 @@ How Do I Load This Spark?
 Normally this would be:
 
 	<?php
-	$this->load->spark('GoogleAPIClient/3.0.0');
+	$this->load->spark('GoogleAPIClient/0.5.0');
 	?>
 	
 but this doesn't actually do anything since there are no CodeIgniter-esque config files, helpers, or libraries within this Spark. Just follow the example code (some included below) to init this Spark.
@@ -85,8 +85,8 @@ You can now access these Google services via the included example code, included
 	<?php
 	global $apiConfig;
 
-	require_once SPARKPATH . "GoogleAPIClient/3.0.0/src/apiClient.php";
-	require_once SPARKPATH . "GoogleAPIClient/3.0.0/src/contrib/apiCalendarService.php";
+	require_once SPARKPATH . "GoogleAPIClient/0.5.0/src/apiClient.php";
+	require_once SPARKPATH . "GoogleAPIClient/0.5.0/src/contrib/apiCalendarService.php";
 
 	// init API
 	$apiClient = new apiClient();
