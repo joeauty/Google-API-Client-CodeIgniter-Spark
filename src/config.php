@@ -25,7 +25,7 @@ $apiConfig = array(
     'application_name' => '',
 
     // OAuth2 Settings, you can get these keys at https://code.google.com/apis/console
-    'oauth2_client_id' => ']',
+    'oauth2_client_id' => '',
     'oauth2_client_secret' => '',
     'oauth2_redirect_uri' => '',
 
