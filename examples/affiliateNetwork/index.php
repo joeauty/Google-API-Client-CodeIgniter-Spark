@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiGanService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_GanService.php';
 
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google GAN PHP Starter Application");
 // Visit https://code.google.com/apis/console?api=gan to generate your
 // oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
@@ -27,7 +27,7 @@ $client->setApplicationName("Google GAN PHP Starter Application");
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 // $client->setDeveloperKey('insert_your_simple_api_key');
-$gan = new apiGanService($client);
+$gan = new Google_GanService($client);
 
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
@@ -55,12 +55,9 @@ if ($client->getAccessToken()) {
 } else {
   $authUrl = $client->createAuthUrl();
 }
-?>
 
-<?php
-  if(isset($authUrl)) {
-    print "<a class='login' href='$authUrl'>Connect Me!</a>";
-  } else {
-   print "<a class='logout' href='?logout'>Logout</a>";
-  }
-?>
+if(isset($authUrl)) {
+  print "<a class='login' href='$authUrl'>Connect Me!</a>";
+} else {
+ print "<a class='logout' href='?logout'>Logout</a>";
+}

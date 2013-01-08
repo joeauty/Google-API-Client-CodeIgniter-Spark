@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiPlusService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_PlusService.php';
 
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google+ PHP Starter Application");
 // Visit https://code.google.com/apis/console to generate your
 // oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
@@ -27,14 +27,14 @@ $client->setApplicationName("Google+ PHP Starter Application");
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 // $client->setDeveloperKey('insert_your_developer_key');
-$plus = new apiPlusService($client);
+$plus = new Google_PlusService($client);
 
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
 
 if (isset($_GET['code'])) {
-  $client->authenticate();
+  $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
 }
