@@ -18,7 +18,7 @@
 /**
  * Include the AdSense service class and the HTML generation functions.
  */
-require_once "../../src/contrib/apiAdsenseService.php";
+require_once "../../src/contrib/Google_AdsenseService.php";
 require_once "htmlHelper.php";
 
 /**
@@ -33,10 +33,10 @@ abstract class BaseExample {
 
   /**
    * Inject the dependency.
-   * @param apiAdsenseService $adSenseService an authenticated instance
-   *     of apiAdsenseService
+   * @param Google_AdsenseService $adSenseService an authenticated instance
+   *     of Google_AdsenseService
    */
-  public function __construct(apiAdsenseService $adSenseService) {
+  public function __construct(Google_AdsenseService $adSenseService) {
     $this->adSenseService = $adSenseService;
   }
 

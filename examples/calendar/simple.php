@@ -1,9 +1,9 @@
 <?php
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiCalendarService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_CalendarService.php';
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google Calendar PHP Starter Application");
 
 // Visit https://code.google.com/apis/console?api=calendar to generate your
@@ -12,13 +12,13 @@ $client->setApplicationName("Google Calendar PHP Starter Application");
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 // $client->setDeveloperKey('insert_your_developer_key');
-$cal = new apiCalendarService($client);
+$cal = new Google_CalendarService($client);
 if (isset($_GET['logout'])) {
   unset($_SESSION['token']);
 }
 
 if (isset($_GET['code'])) {
-  $client->authenticate();
+  $client->authenticate($_GET['code']);
   $_SESSION['token'] = $client->getAccessToken();
   header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
 }

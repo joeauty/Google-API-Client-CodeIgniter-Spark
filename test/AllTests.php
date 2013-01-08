@@ -23,6 +23,7 @@
  */
 
 require_once 'BaseTest.php';
+require_once 'adsense/AdsenseTest.php';
 require_once 'general/GeneralTests.php';
 require_once 'tasks/AllTasksTests.php';
 require_once 'pagespeed/AllPageSpeedTests.php';
@@ -37,6 +38,8 @@ class AllTests {
     $suite->addTestSuite(AllPageSpeedTests::suite());
     $suite->addTestSuite(AllUrlShortenerTests::suite());
     $suite->addTestSuite(AllPlusTests::suite());
+    //$suite->addTestSuite(AdsenseTests::suite());
+
     $suite->addTestSuite(GeneralTests::suite());
     return $suite;
   }
