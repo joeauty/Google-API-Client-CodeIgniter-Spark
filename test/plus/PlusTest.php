@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-require_once '../src/contrib/apiPlusService.php';
+require_once '../src/contrib/Google_PlusService.php';
 
 class AllPlusTests extends PHPUnit_Framework_TestSuite {
   public static function suite() {
@@ -27,10 +27,11 @@ class AllPlusTests extends PHPUnit_Framework_TestSuite {
 }
 
 class PlusTest extends BaseTest {
+  /** @var Google_PlusService */
   public $plus;
   public function __construct() {
     parent::__construct();
-    $this->plus = new apiPlusService(BaseTest::$client);
+    $this->plus = new Google_PlusService(BaseTest::$client);
   }
 
   public function testGetPerson() {
