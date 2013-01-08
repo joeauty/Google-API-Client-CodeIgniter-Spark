@@ -3,7 +3,9 @@
         <blacklist>
            <directory suffix=".php">../src/contrib/</directory>
            <directory suffix=".php">../src/external/</directory>
-           <file>../src/auth/apiOAuth.php</file>
+           <directory suffix=".php">./</directory>
+           <file>../src/cache/googleApcCache.php</file>
+           <file>../src/cache/googleMemcacheCache.php</file>
         </blacklist>
     </filter>
 </phpunit>

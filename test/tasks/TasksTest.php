@@ -15,14 +15,15 @@
  * limitations under the License.
  */
 
-require_once '../src/contrib/apiTasksService.php';
+require_once '../src/contrib/Google_TasksService.php';
 
 class TasksTest extends BaseTest {
+  /** @var Google_TasksService */
   public $taskService;
 
   public function __construct() {
     parent::__construct();
-    $this->taskService = new apiTasksService(BaseTest::$client);
+    $this->taskService = new Google_TasksService(BaseTest::$client);
   }
   
   public function testInsertTask() {
@@ -56,16 +57,14 @@ class TasksTest extends BaseTest {
   }
 
   private function createTaskList($name) {
-    $taskList = $this->taskService->tasklists;
-    $list = new TaskList();
-      
+    $list = new Google_TaskList();
     $list->title = $name;
-    return $taskList->insert($list);
+    return $this->taskService->tasklists->insert($list);
   }
 
   private function createTask($title, $listId) {
     $tasks = $this->taskService->tasks;
-    $task = new Task();
+    $task = new Google_Task();
     $task->title = $title;
     return $tasks->insert($listId, $task);
   }

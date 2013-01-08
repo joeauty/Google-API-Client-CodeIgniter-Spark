@@ -16,24 +16,24 @@
  */
 session_start();
 
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiLatitudeService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_LatitudeService.php';
 
-$client = new apiClient();
+$client = new Google_Client();
 // Visit https://code.google.com/apis/console to generate your
 // oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
 // $client->setClientId('insert_your_oauth2_client_id');
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 $client->setApplicationName("Latitude_Example_App");
-$service = new apiLatitudeService($client);
+$service = new Google_LatitudeService($client);
 
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
 
 if (isset($_GET['code'])) {
-  $client->authenticate();
+  $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
   header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));

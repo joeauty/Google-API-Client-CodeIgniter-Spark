@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 session_start();
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiPagespeedonlineService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_PagespeedonlineService.php';
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("PageSpeedOnline_Example_App");
-$service = new apiPagespeedonlineService($client);
+$service = new Google_PagespeedonlineService($client);
 
 if (isset($_GET['url'])) {
   $result = $service->pagespeedapi->runpagespeed($_GET['url']);

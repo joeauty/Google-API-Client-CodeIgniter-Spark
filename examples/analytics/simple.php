@@ -1,9 +1,9 @@
 <?php
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiAnalyticsService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_AnalyticsService.php';
 session_start();
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google Analytics PHP Starter Application");
 
 // Visit https://code.google.com/apis/console?api=analytics to generate your
@@ -12,7 +12,7 @@ $client->setApplicationName("Google Analytics PHP Starter Application");
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 // $client->setDeveloperKey('insert_your_developer_key');
-$service = new apiAnalyticsService($client);
+$service = new Google_AnalyticsService($client);
 
 if (isset($_GET['logout'])) {
   unset($_SESSION['token']);
@@ -21,7 +21,8 @@ if (isset($_GET['logout'])) {
 if (isset($_GET['code'])) {
   $client->authenticate();
   $_SESSION['token'] = $client->getAccessToken();
-  header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+  $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+  header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
 }
 
 if (isset($_SESSION['token'])) {

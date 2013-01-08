@@ -1,14 +1,14 @@
 <?php
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiShoppingService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_ShoppingService.php';
 
-$client = new apiClient();
+$client = new Google_Client();
 $client->setApplicationName("Google Shopping PHP Starter Application");
 
 // Visit https://code.google.com/apis/console?api=shopping to generate your
 // Simple API Key.
 //$client->setDeveloperKey('insert_your_api_key');
-$service = new apiShoppingService($client);
+$service = new Google_ShoppingService($client);
 
 // Valid source values are "public", "cx:cse", and "gan:pid"
 // See http://code.google.com/apis/shopping/search/v1/getting_started.html#products-feed

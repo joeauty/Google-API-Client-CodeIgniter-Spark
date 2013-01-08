@@ -44,7 +44,7 @@ class GetAllCustomChannels extends BaseExample {
           $content = array();
           $mainFormat =
               'Custom channel with code "%s" and name "%s" was found.';
-          $content[] = sprintf($mainFormat, $customChannel['productCode'],
+          $content[] = sprintf($mainFormat, $customChannel['code'],
               $customChannel['name']);
           if($customChannel['targetingInfo']) {
             $targetingInfo = $customChannel['targetingInfo'];

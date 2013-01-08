@@ -15,17 +15,17 @@
  * limitations under the License.
  */
 session_start();
-require_once '../../src/apiClient.php';
-require_once '../../src/contrib/apiTasksService.php';
+require_once '../../src/Google_Client.php';
+require_once '../../src/contrib/Google_TasksService.php';
 
-$client = new apiClient();
+$client = new Google_Client();
 // Visit https://code.google.com/apis/console to generate your
 // oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
 // $client->setClientId('insert_your_oauth2_client_id');
 // $client->setClientSecret('insert_your_oauth2_client_secret');
 // $client->setRedirectUri('insert_your_oauth2_redirect_uri');
 // $client->setApplicationName("Tasks_Example_App");
-$tasksService = new apiTasksService($client);
+$tasksService = new Google_TasksService($client);
 
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
@@ -34,7 +34,7 @@ if (isset($_REQUEST['logout'])) {
 if (isset($_SESSION['access_token'])) {
   $client->setAccessToken($_SESSION['access_token']);
 } else {
-  $client->setAccessToken($client->authenticate());
+  $client->setAccessToken($client->authenticate($_GET['code']));
   $_SESSION['access_token'] = $client->getAccessToken();
 }
 

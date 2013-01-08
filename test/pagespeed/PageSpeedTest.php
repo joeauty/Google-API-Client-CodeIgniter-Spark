@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-require_once '../src/contrib/apiPagespeedonlineService.php';
+require_once '../src/contrib/Google_PagespeedonlineService.php';
 
 class PageSpeedTest extends BaseTest {
   public $service;
   public function __construct() {
     parent::__construct();
-    $this->service = new apiPagespeedonlineService(BaseTest::$client);
+    $this->service = new Google_PagespeedonlineService(BaseTest::$client);
   }
 
   public function testPageSpeed() {
